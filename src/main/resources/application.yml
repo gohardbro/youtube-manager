@@ -1,0 +1,18 @@
+oOauth:
+  client-id: /ZI2yhTPCuA+Q6/7POlQ3Sp6NrgLCs8VH707YZ0YyUQICHLADz7cTcJghKmiC57OP7R3S1XD/9q9CyZWytTPO6acRJOlrFHA4I7Mp/d9PRPqLChJFybLHQ==
+  client-secret: Ru+kuSvI7G6kFCrtdSifVIuZIGVoO3yFwmr6RBgE4JudsPmZTDNn5TZLaNc/EXzZ
+  scope: https://www.googleapis.com/auth/youtube.force-ssl
+  provider:
+    authorization-uri: https://accounts.google.com/o/oauth2/auth
+    token-uri: https://accounts.google.com/o/oauth2/token
+    user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+    user-name-attribute: sub
+
+spring:
+  profiles:
+    include: secret
+
+  security:
+    user:
+      name: user
+      password: 1234
