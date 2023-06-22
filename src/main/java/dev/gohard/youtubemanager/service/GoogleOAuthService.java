@@ -1,4 +1,4 @@
-package click.gohard.youtubemanager.service;
+package dev.gohard.youtubemanager.service;
 
 import org.springframework.stereotype.Service;
 

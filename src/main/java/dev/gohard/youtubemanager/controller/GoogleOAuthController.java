@@ -1,6 +1,6 @@
-package click.gohard.youtubemanager.controller;
+package dev.gohard.youtubemanager.controller;
 
-import click.gohard.youtubemanager.model.dto.GoogleOAuthDto;
+import dev.gohard.youtubemanager.model.dto.GoogleOAuthDto;
 import com.google.api.client.auth.oauth2.AuthorizationCodeRequestUrl;
 import lombok.RequiredArgsConstructor;
 import org.jasypt.encryption.StringEncryptor;
@@ -13,13 +13,12 @@ import java.util.Collections;
 public class GoogleOAuthController {
 
     private final GoogleOAuthDto googleOAuthDto;
-    private final StringEncryptor encryptor;
 
     @GetMapping("/oAuth")
     public String goOauthUri() {
         AuthorizationCodeRequestUrl authorizationUrl = new AuthorizationCodeRequestUrl(
                 googleOAuthDto.getAuthorizationUri(),
-                encryptor.decrypt(googleOAuthDto.getClientId()));
+                googleOAuthDto.getClientId());
 
         authorizationUrl.setScopes(Collections.singletonList(googleOAuthDto.getScope()));
         authorizationUrl.setResponseTypes(Collections.singletonList(googleOAuthDto.getResponseType()));

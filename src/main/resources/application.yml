@@ -1,6 +1,6 @@
 oOauth:
-  client-id: /ZI2yhTPCuA+Q6/7POlQ3Sp6NrgLCs8VH707YZ0YyUQICHLADz7cTcJghKmiC57OP7R3S1XD/9q9CyZWytTPO6acRJOlrFHA4I7Mp/d9PRPqLChJFybLHQ==
-  client-secret: Ru+kuSvI7G6kFCrtdSifVIuZIGVoO3yFwmr6RBgE4JudsPmZTDNn5TZLaNc/EXzZ
+  client-id: ENC(iiKYNgoyNaQOttEPz+dqy8BVcDf7N9ardBMXHvdXS/mveV8wSLBKFAUi5fzUB+Xq8WLLjn+lPbgN2ngGUkHoeFYGl43UwWy7DI3DnNBCQ3B1+TUTf5XwcA==)
+  client-secret: ENC(f0ghzB+1/bB28Kqsk0zi125xy6kMVCW5eGOBpfojoE0HB9M6RlZSYxMHoecq9x4P)
   scope: https://www.googleapis.com/auth/youtube.force-ssl
   provider:
     authorization-uri: https://accounts.google.com/o/oauth2/auth
@@ -8,11 +8,26 @@ oOauth:
     user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
     user-name-attribute: sub
 
+logging:
+  level:
+    org:
+      springframework:
+        security: trace
+
 spring:
   profiles:
     include: secret
 
   security:
-    user:
-      name: user
-      password: 1234
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ENC(iiKYNgoyNaQOttEPz+dqy8BVcDf7N9ardBMXHvdXS/mveV8wSLBKFAUi5fzUB+Xq8WLLjn+lPbgN2ngGUkHoeFYGl43UwWy7DI3DnNBCQ3B1+TUTf5XwcA==)
+            client-secret: ENC(f0ghzB+1/bB28Kqsk0zi125xy6kMVCW5eGOBpfojoE0HB9M6RlZSYxMHoecq9x4P)
+            scope:
+              - https://www.googleapis.com/auth/youtube.force-ssl
+            redirect-uri: http://localhost:8080/callback
+#    user:
+#      name: user
+#      password: 0000

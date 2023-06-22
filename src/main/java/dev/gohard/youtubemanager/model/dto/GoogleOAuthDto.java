@@ -1,4 +1,4 @@
-package click.gohard.youtubemanager.model.dto;
+package dev.gohard.youtubemanager.model.dto;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;

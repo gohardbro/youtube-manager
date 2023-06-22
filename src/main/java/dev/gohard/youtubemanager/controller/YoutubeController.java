@@ -1,4 +1,4 @@
-package click.gohard.youtubemanager.controller;
+package dev.gohard.youtubemanager.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

@@ -1,4 +1,4 @@
-package click.gohard.youtubemanager;
+package dev.gohard.youtubemanager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
