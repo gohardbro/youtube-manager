@@ -38,7 +38,7 @@ public class GoogleOAuthController {
 
     @GetMapping("/callback")
     public void handleCallback(@RequestParam String code, HttpSession httpSession) {
-        String redirectUri = "http://localhost:8080/videos";
+        String redirectUri = "http://localhost:8080/channels";
 
         httpSession.setAttribute("accessToken", googleOAuthService.getAccessToken(code, redirectUri));
     }

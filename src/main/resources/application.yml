@@ -14,7 +14,6 @@ logging:
       springframework:
         security: trace
 
-
 spring:
   # jasypt 암호key 보관용
   profiles:
@@ -27,10 +26,22 @@ spring:
           google:
             client-id: ENC(1KJEumjXEDQv6Mvprk7dneRPXW78Jzg8kMY8iaIWiMnzeuwViSUBUGePy0/0jHUO1V8/c4wKlfUIr6Z1GdM9rYvSs9ynPK5zJmwyn+j5miasOqwtJDbSNw==)
             client-secret: ENC(oxWUBvzxzU8JYQDvrxiuUbIU3v0go1F1TxBEZncU15H8W3Waq3SKUR+drnDDROiA)
-#            scope:
-#              - https://www.googleapis.com/auth/youtube
+            scope:
+              - openid
+              - profile
+              - email
+              - https://www.googleapis.com/auth/youtube
+#              - https://www.googleapis.com/auth/userinfo.email
+#              - https://www.googleapis.com/auth/userinfo.profile
+#              - https://www.googleapis.com/auth/youtube/youtube.third-party-link.creator
 #              - https://www.googleapis.com/auth/youtube.force-ssl
-#            redirect-uri: http://localhost:8080/login/oauth2/code/google
+            redirect-uri: http://localhost:8080/callback
+        provider:
+          google:
+            authorization-uri: https://accounts.google.com/o/oauth2/auth
+            token-uri: https://oauth2.googleapis.com/token
+            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+            user-name-attribute: sub
 #    user:
 #      name: user
 #      password: 0000
