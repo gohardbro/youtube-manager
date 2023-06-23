@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class OAuthService {
+public class OAuthServiceImpl {
     private final OAuth2AuthorizedClientService clientService;
 
     public String getAccessToken() {
