@@ -1,7 +1,7 @@
 package dev.gohard.youtubemanager.controller;
 
+import dev.gohard.youtubemanager.service.OAuthService;
 import dev.gohard.youtubemanager.service.YoutubeApiService;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class YoutubeApiController {
     private final YoutubeApiService youtubeService;
+    private final OAuthService oAuthService;
 
     @GetMapping("/channels")
-    public String showChannels(Model model, HttpSession session) {
-        String accessToken = (String) session.getAttribute("accessToken");
-        ResponseEntity<String> responseEntity = youtubeService.getChannels(accessToken);
+    public String showChannels(Model model) {
+        ResponseEntity<String> responseEntity = youtubeService.getChannels(oAuthService.getAccessToken());
 
         model.addAttribute("channels", responseEntity.getBody());
         return "channels";

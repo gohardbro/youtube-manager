@@ -9,8 +9,7 @@
     <h1>Youtube Channels</h1>
     <ul>
         <li th:each="channels : ${channels}">
-            <p th:text="${channels.snippet.title}"></p>
-            <p th:text="${channels.snippet.description}"></p>
+            <p th:text="${channels}"></p>
         </li>
     </ul>
 </article>

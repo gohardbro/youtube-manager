@@ -35,7 +35,7 @@ spring:
 #              - https://www.googleapis.com/auth/userinfo.profile
 #              - https://www.googleapis.com/auth/youtube/youtube.third-party-link.creator
 #              - https://www.googleapis.com/auth/youtube.force-ssl
-            redirect-uri: http://localhost:8080/callback
+#            redirect-uri: http://localhost:8080/callback
         provider:
           google:
             authorization-uri: https://accounts.google.com/o/oauth2/auth
