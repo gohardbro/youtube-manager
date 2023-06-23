@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<article>
+    <h1>Youtube Likes</h1>
+    <ul>
+        <li th:each="like : ${likes}">
+            <p th:text="${like.snippet.title}"></p>
+            <p th:text="${like.snippet.description}"></p>
+            <a th:href="${like.snippet.thumbnails.defaultThumbnail.url}" th:text="${like.snippet.thumbnails.defaultThumbnail.url}"></a>
+        </li>
+    </ul>
+</article>
+</body>
+</html>

@@ -24,7 +24,6 @@ public class YoutubeChannelResponse {
         private BrandingSettings brandingSettings;
         private InvideoPromotion invideoPromotion;
     }
-    // Getter and Setter methods
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     @Data
@@ -33,16 +32,12 @@ public class YoutubeChannelResponse {
         private String description;
         private String publishedAt;
         private Thumbnails thumbnails;
-
-        // Getter and Setter methods
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     @Data
     public static class Thumbnails {
         private ThumbnailInfo defaultThumbnail;
-
-        // Getter and Setter methods
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -51,8 +46,6 @@ public class YoutubeChannelResponse {
         private String url;
         private int width;
         private int height;
-
-        // Getter and Setter methods
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -60,8 +53,6 @@ public class YoutubeChannelResponse {
     public static class ContentDetails {
         private RelatedPlaylists relatedPlaylists;
         private String googlePlusUserId;
-
-        // Getter and Setter methods
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -72,8 +63,6 @@ public class YoutubeChannelResponse {
         private String uploads;
         private String watchHistory;
         private String watchLater;
-
-        // Getter and Setter methods
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -84,16 +73,12 @@ public class YoutubeChannelResponse {
         private long subscriberCount;
         private boolean hiddenSubscriberCount;
         private long videoCount;
-
-        // Getter and Setter methods
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     @Data
     public static class TopicDetails {
         private List<String> topicIds;
-
-        // Getter and Setter methods
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -101,8 +86,6 @@ public class YoutubeChannelResponse {
     public static class Status {
         private String privacyStatus;
         private boolean isLinked;
-
-        // Getter and Setter methods
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -111,8 +94,6 @@ public class YoutubeChannelResponse {
         private ChannelSettings channel;
         private WatchSettings watch;
         private ImageSettings image;
-
-        // Getter and Setter methods
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -130,8 +111,6 @@ public class YoutubeChannelResponse {
         private List<String> featuredChannelsUrls;
         private String unsubscribedTrailer;
         private String profileColor;
-
-        // Getter and Setter methods
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -140,8 +119,6 @@ public class YoutubeChannelResponse {
         private String textColor;
         private String backgroundColor;
         private String featuredPlaylistId;
-
-        // Getter and Setter methods
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -164,8 +141,6 @@ public class YoutubeChannelResponse {
         private String bannerMobileExtraHdImageUrl;
         private String bannerTvImageUrl;
         private String bannerExternalUrl;
-
-        // Getter and Setter methods
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -173,8 +148,6 @@ public class YoutubeChannelResponse {
     public static class BackgroundImageUrl {
         private String defaultValue;
         private List<LocalizedBackgroundImage> localized;
-
-        // Getter and Setter methods
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -182,8 +155,6 @@ public class YoutubeChannelResponse {
     public static class LocalizedBackgroundImage {
         private String value;
         private String language;
-
-        // Getter and Setter methods
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -191,8 +162,6 @@ public class YoutubeChannelResponse {
     public static class BannerImage {
         private String defaultValue;
         private List<LocalizedBannerImage> localized;
-
-        // Getter and Setter methods
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -200,8 +169,6 @@ public class YoutubeChannelResponse {
     public static class LocalizedBannerImage {
         private String value;
         private String language;
-
-        // Getter and Setter methods
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -210,8 +177,6 @@ public class YoutubeChannelResponse {
         private Timing defaultTiming;
         private Position position;
         private List<InvideoPromotionItem> items;
-
-        // Getter and Setter methods
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -220,8 +185,6 @@ public class YoutubeChannelResponse {
         private String type;
         private long offsetMs;
         private long durationMs;
-
-        // Getter and Setter methods
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -229,8 +192,6 @@ public class YoutubeChannelResponse {
     public static class Position {
         private String type;
         private String cornerPosition;
-
-        // Getter and Setter methods
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -239,8 +200,6 @@ public class YoutubeChannelResponse {
         private Id id;
         private Timing timing;
         private String customMessage;
-
-        // Getter and Setter methods
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -249,7 +208,5 @@ public class YoutubeChannelResponse {
         private String type;
         private String videoId;
         private String websiteUrl;
-
-        // Getter and Setter methods
     }
 }
