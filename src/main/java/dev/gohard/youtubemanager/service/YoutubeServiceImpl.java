@@ -1,72 +1,56 @@
 package dev.gohard.youtubemanager.service;
 
-import com.google.api.services.youtube.model.Playlist;
-import dev.gohard.youtubemanager.util.YoutubeChannelResponse;
-import dev.gohard.youtubemanager.util.YoutubePlaylistItemResponse;
-import dev.gohard.youtubemanager.util.YoutubePlaylistItemResponse.YoutubePlaylistItem;
+import com.google.api.services.youtube.YouTube;
+import com.google.api.services.youtube.model.Channel;
+import com.google.api.services.youtube.model.ChannelListResponse;
+import com.google.api.services.youtube.model.PlaylistItem;
+import com.google.api.services.youtube.model.PlaylistItemListResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-
-import static dev.gohard.youtubemanager.util.YoutubeChannelResponse.*;
 
 @Service
 @RequiredArgsConstructor
 public class YoutubeServiceImpl implements YoutubeService {
+    private final YouTube youtube;
+
     @Override
-    public List<YoutubePlaylistItem> getLikedVideos(String accessToken) {
-        WebClient  webClient = WebClient.builder()
-                .baseUrl("https://www.googleapis.com/youtube/v3")
-                .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
-                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .build();
+    public List<PlaylistItem> getPlaylistItems(String accessToken, String playlistId) {
+        List<PlaylistItem> playlistItems = new ArrayList<>();
 
-        // getting liked video playlistId
-        String playlistId = getChannels(accessToken)
-                .get(0)
-                .getContentDetails()
-                .getRelatedPlaylists()
-                .getLikes();
+        try {
+            YouTube.PlaylistItems.List request = youtube.playlistItems().list(Collections.singletonList("snippet"));
+            request.setAccessToken(accessToken);
+            request.setPlaylistId(playlistId);
+            request.setMaxResults(50L);
 
-        // getting videos from playlist
-        return webClient.get()
-                .uri(builder -> builder
-                        .path("/playlistItems")
-                        .queryParam("part", "snippet,contentDetails")
-                        .queryParam("playlistId", playlistId)
-                        .build())
-                .retrieve()
-                .bodyToMono(YoutubePlaylistItemResponse.class)
-                .block()
-                .getItems();
+            PlaylistItemListResponse response = request.execute();
+            playlistItems = response.getItems();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return playlistItems;
     }
 
-    @Override
-    public List<Playlist> getPlaylists(String accessToken) {
-        return null;
-    }
+    public List<Channel> getChannels(String accessToken) {
+        List<Channel> channels = new ArrayList<>();
 
-    @Override
-    public List<YoutubeChannel> getChannels(String accessToken) {
-        WebClient webClient = WebClient.builder()
-                .baseUrl("https://www.googleapis.com/youtube/v3")
-                .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
-                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .build();
+        try {
+            YouTube.Channels.List request = youtube.channels().list(Collections.singletonList("snippet,contentDetails"));
+            request.setAccessToken(accessToken);
+            request.setMine(true);
 
-        return webClient.get()
-                .uri(builder -> builder
-                        .path("/channels")
-                        .queryParam("part", "snippet,contentDetails")
-                        .queryParam("mine", "true")
-                        .build())
-                .retrieve()
-                .bodyToMono(YoutubeChannelResponse.class)
-                .block()
-                .getItems();
+            ChannelListResponse response = request.execute();
+            channels = response.getItems();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return channels;
     }
 }
