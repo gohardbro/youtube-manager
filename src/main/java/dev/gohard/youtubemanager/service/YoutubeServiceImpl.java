@@ -1,10 +1,7 @@
 package dev.gohard.youtubemanager.service;
 
 import com.google.api.services.youtube.YouTube;
-import com.google.api.services.youtube.model.Channel;
-import com.google.api.services.youtube.model.ChannelListResponse;
-import com.google.api.services.youtube.model.PlaylistItem;
-import com.google.api.services.youtube.model.PlaylistItemListResponse;
+import com.google.api.services.youtube.model.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +14,24 @@ import java.util.List;
 @RequiredArgsConstructor
 public class YoutubeServiceImpl implements YoutubeService {
     private final YouTube youtube;
+
+    @Override
+    public List<Playlist> getPlaylists(String accessToken) {
+        List<Playlist> playlists = new ArrayList<>();
+
+        try {
+            YouTube.Playlists.List request = youtube.playlists().list(Collections.singletonList("snippet"));
+            request.setAccessToken(accessToken);
+            request.setMine(true);
+
+            PlaylistListResponse response = request.execute();
+            playlists = response.getItems();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return playlists;
+    }
 
     @Override
     public List<PlaylistItem> getPlaylistItems(String accessToken, String playlistId) {

@@ -8,12 +8,12 @@
     <article>
         <h1>Youtube playlists</h1>
         <ul>
-            <li th:each="channel : ${channels}">
-                <p th:text="${channel.contentDetails.relatedPlaylists.likes}"></p>
-                <p th:text="${channel.contentDetails.relatedPlaylists.favorites}"></p>
-                <p th:text="${channel.contentDetails.relatedPlaylists.uploads}"></p>
-                <p th:text="${channel.contentDetails.relatedPlaylists.watchHistory}"></p>
-                <p th:text="${channel.contentDetails.relatedPlaylists.watchLater}"></p>
+            <li th:each="playlist : ${playlists}">
+                <p>좋아요: </p><p th:text="${playlists}"></p>
+                <p>즐겨찾기: </p><p th:text="${channel.contentDetails.relatedPlaylists.favorites}"></p>
+                <p>업로드: </p><p th:text="${channel.contentDetails.relatedPlaylists.uploads}"></p>
+                <p>시청기록: </p><p th:text="${channel.contentDetails.relatedPlaylists.watchHistory}"></p>
+                <p>나중에볼영상: </p><p th:text="${channel.contentDetails.relatedPlaylists.watchLater}"></p>
             </li>
         </ul>
     </article>
