@@ -2,17 +2,20 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>playlists</title>
 </head>
 <body>
-<article>
-    <h1>Youtube Channels</h1>
-    <ul>
-        <li th:each="channel : ${channels}">
-            <p th:text="${channel.id}"></p>
-            <p th:text="${channel.snippet.title}"></p>
-        </li>
-    </ul>
-</article>
+    <article>
+        <h1>Youtube playlists</h1>
+        <ul>
+            <li th:each="channel : ${channels}">
+                <p th:text="${channel.contentDetails.relatedPlaylists.likes}"></p>
+                <p th:text="${channel.contentDetails.relatedPlaylists.favorites}"></p>
+                <p th:text="${channel.contentDetails.relatedPlaylists.uploads}"></p>
+                <p th:text="${channel.contentDetails.relatedPlaylists.watchHistory}"></p>
+                <p th:text="${channel.contentDetails.relatedPlaylists.watchLater}"></p>
+            </li>
+        </ul>
+    </article>
 </body>
 </html>
