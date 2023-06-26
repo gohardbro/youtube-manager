@@ -9,7 +9,7 @@
   <h1>Youtube playlists</h1>
   <ul>
     <li th:each="playlist : ${playlists}">
-      <p th:text="${playlist}"></p>
+      <a th:href="@{/playlists/{id}(id=${playlist.id})}" th:text="${playlist.id}"></a>
     </li>
   </ul>
 </article>

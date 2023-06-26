@@ -23,6 +23,7 @@ public class YoutubeServiceImpl implements YoutubeService {
             YouTube.Playlists.List request = youtube.playlists().list(Collections.singletonList("snippet"));
             request.setAccessToken(accessToken);
             request.setMine(true);
+            request.setMaxResults(50L);
 
             PlaylistListResponse response = request.execute();
             playlists = response.getItems();
@@ -37,14 +38,21 @@ public class YoutubeServiceImpl implements YoutubeService {
     public List<PlaylistItem> getPlaylistItems(String accessToken, String playlistId) {
         List<PlaylistItem> playlistItems = new ArrayList<>();
 
-        try {
-            YouTube.PlaylistItems.List request = youtube.playlistItems().list(Collections.singletonList("snippet"));
-            request.setAccessToken(accessToken);
-            request.setPlaylistId(playlistId);
-            request.setMaxResults(50L);
+        String nextPageToken = null;
 
-            PlaylistItemListResponse response = request.execute();
-            playlistItems = response.getItems();
+        try {
+            do {
+                YouTube.PlaylistItems.List request = youtube.playlistItems().list(Collections.singletonList("snippet"));
+                request.setAccessToken(accessToken);
+                request.setPlaylistId(playlistId);
+                request.setMaxResults(50L); // 최대 50개 가능
+                request.setPageToken(nextPageToken);
+
+                PlaylistItemListResponse response = request.execute();
+                playlistItems.addAll(response.getItems());
+
+                nextPageToken = response.getNextPageToken();
+            } while (nextPageToken != null);
         } catch (IOException e) {
             e.printStackTrace();
         }
