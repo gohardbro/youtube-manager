@@ -76,4 +76,15 @@ public class YoutubeServiceImpl implements YoutubeService {
 
         return channels;
     }
+
+    @Override
+    public void deletePlaylist(String accessToken, String playlistId) {
+        try {
+            YouTube.PlaylistItems.Delete request = youtube.playlistItems().delete(playlistId);
+            request.setAccessToken(accessToken);
+            request.execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

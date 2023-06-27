@@ -6,16 +6,17 @@ import com.google.api.services.youtube.model.PlaylistItem;
 import dev.gohard.youtubemanager.service.OAuthService;
 import dev.gohard.youtubemanager.service.YoutubeServiceImpl;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class YoutubeApiController {
     private final YoutubeServiceImpl youtubeService;
     private final OAuthService oAuthService;
@@ -30,9 +31,10 @@ public class YoutubeApiController {
 
     // 특정 플레이리스트의 영상들 조회
     @GetMapping("/playlists/{id}")
-    public String showPlaylistItems(@PathVariable("id") String id, Model model) {
+    public String showPlaylistItems(@PathVariable("id") String id, @RequestParam String title, Model model) {
         List<PlaylistItem> playlistItems = youtubeService.getPlaylistItems(oAuthService.getAccessToken(), id);
         model.addAttribute("playlistItems", playlistItems);
+        model.addAttribute("title", title);
         return "playlistItems";
     }
 
@@ -55,5 +57,12 @@ public class YoutubeApiController {
         List<Channel> channels = youtubeService.getChannels(oAuthService.getAccessToken());
         model.addAttribute("channels", channels);
         return "channels";
+    }
+
+    // playlist의 재생항목 삭제
+    @DeleteMapping("/playlists/delete")
+    public void deletePlaylistItems(@RequestBody String id) {
+        log.info("받은데이터: " + id);
+//        youtubeService.deletePlaylistItems(oAuthService.getAccessToken(), id);
     }
 }
