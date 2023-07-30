@@ -10,5 +10,5 @@ public interface YoutubeService {
     List<Playlist> getPlaylists(String accessToken);
     List<PlaylistItem> getPlaylistItems(String accessToken, String playlistId);
     List<Channel> getChannels(String accessToken);
-    void deletePlaylist(String accessToken, String playlistId);
+    void deletePlaylistItems(String accessToken, String playlistId);
 }

@@ -78,7 +78,7 @@ public class YoutubeServiceImpl implements YoutubeService {
     }
 
     @Override
-    public void deletePlaylist(String accessToken, String playlistId) {
+    public void deletePlaylistItems(String accessToken, String playlistId) {
         try {
             YouTube.PlaylistItems.Delete request = youtube.playlistItems().delete(playlistId);
             request.setAccessToken(accessToken);

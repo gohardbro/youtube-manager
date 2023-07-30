@@ -7,10 +7,12 @@ import dev.gohard.youtubemanager.service.OAuthService;
 import dev.gohard.youtubemanager.service.YoutubeServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -61,8 +63,9 @@ public class YoutubeApiController {
 
     // playlist의 재생항목 삭제
     @DeleteMapping("/playlists/delete")
-    public void deletePlaylistItems(@RequestBody String id) {
-        log.info("받은데이터: " + id);
+    public ResponseEntity<String> deletePlaylistItems(@RequestBody String[] selectedItems) {
+        log.info("받은데이터: " + Arrays.toString(selectedItems));
 //        youtubeService.deletePlaylistItems(oAuthService.getAccessToken(), id);
+        return ResponseEntity.ok("삭제완료!");
     }
 }
