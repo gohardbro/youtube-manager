@@ -1,6 +1,7 @@
 const deleteButton = document.getElementById("deleteButton");
 deleteButton.addEventListener("click", deleteData);
 
+// playlist 안에서 선택한 비디오 삭제
 function deleteData() {
     const selectedItems = []; // 선택된 항목들 담을 배열
     const csrfToken = document.head.querySelector("meta[name='_csrf']").content;
@@ -15,26 +16,32 @@ function deleteData() {
         }
     }
 
+    // 한개도 선택안하고 버튼눌렀을때
     if (selectedItems.length < 1) {
         alert("최소 한개이상 선택해주세요!");
         return;
     }
 
-    fetch("/playlists/delete", {
-        method: "DELETE",
-        headers: {
-            "header": csrfHeader,
-            "Content-Type": "application/json",
-            "X-CSRF-TOKEN": csrfToken, // CSRF 토큰
-        },
-        body: JSON.stringify(selectedItems),
-        credentials: "include" //인증 정보를 요청에 포함
-    }).then(response => {
-        if (response.ok) {
-            return response;
-        }
-        throw new Error('Request failed!');
-    }).catch(error => {
-        console.log(error);
-    });
+    const deleteConfirm = confirm("선택한 비디오들을 삭제 하시겠습니까?");
+
+    if (deleteConfirm) {
+        fetch("/playlists/delete", {
+            method: "DELETE",
+            headers: {
+                "header": csrfHeader,
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": csrfToken, // CSRF 토큰
+            },
+            body: JSON.stringify(selectedItems),
+            credentials: "include" //인증 정보를 요청에 포함
+        }).then(response => {
+            if (response.ok) {
+                location.reload(); // 목록 최신화를 위한 새로고침
+                return response;
+            }
+            throw new Error('Request failed!');
+        }).catch(error => {
+            console.log(error);
+        });
+    }
 }
