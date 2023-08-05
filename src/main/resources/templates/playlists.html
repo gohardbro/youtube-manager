@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>playlists</title>
+    <meta charset="UTF-8">
+    <title>playlists</title>
+    <link rel="stylesheet" href="/assets/css/main.css">
 </head>
 <body>
 <article>
-  <h1>Youtube playlists</h1>
-  <ul>
-    <li th:each="playlist : ${playlists}">
-      <a th:href="@{/playlists/{id}(id=${playlist.id}, title=${playlist.snippet.title})}" th:text="${playlist.snippet.title}"></a>
-    </li>
-  </ul>
+    <h1>YouTube playlists</h1>
+    <fieldset>
+        <div th:each="playlist : ${playlists}">
+            <a th:href="@{/playlists/{id}(id=${playlist.id}, title=${playlist.snippet.title})}"
+               th:text="${playlist.snippet.title}"></a>
+        </div>
+    </fieldset>
 </article>
 </body>
 </html>

@@ -6,7 +6,7 @@
 </head>
 <body>
     <article>
-        <h1>Youtube playlists</h1>
+        <h1>YouTube playlists</h1>
         <ul>
             <li th:each="channel : ${channels}">
                 <p>좋아요: </p><p th:text="${channel.contentDetails.relatedPlaylists.likes}"></p>

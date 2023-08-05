@@ -1,0 +1,9 @@
+article { text-align: center;}
+fieldset {
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: inline-block;
+    text-align: center;
+}
+
+div { padding: 5px;}
