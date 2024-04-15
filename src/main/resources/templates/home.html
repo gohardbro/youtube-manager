@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>playlists</title>
+    <link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+<article>
+    <h1>YouTube playlists</h1>
+    <div><a th:href="@{/playlists}"
+            th:text="Playlists"></a></div>
+    <div><a th:href="@{/playlists/likes}"
+            th:text="LikedVideos"></a></div>
+</article>
+</body>
+</html>

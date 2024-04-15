@@ -18,7 +18,7 @@ public class SecurityConfig {
                     auth.anyRequest().authenticated();
                 })
                 .oauth2Login(oauth2Login -> oauth2Login
-                        .defaultSuccessUrl("/playlists")
+                        .defaultSuccessUrl("/home")
                         .failureUrl("/login"));
         return http.build();
     }

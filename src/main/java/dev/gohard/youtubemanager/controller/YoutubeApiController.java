@@ -22,6 +22,7 @@ import java.util.List;
 public class YoutubeApiController {
     private final YoutubeServiceImpl youtubeService;
     private final OAuthService oAuthService;
+    private final SseController sseEmitter;
 
     // 내가 직접만든 playlists 조회
     @GetMapping("/playlists")
@@ -64,11 +65,12 @@ public class YoutubeApiController {
     // playlist의 재생항목 삭제
     @DeleteMapping("/playlists/delete")
     public ResponseEntity<String> deletePlaylistItems(@RequestBody String[] selectedItemsIds) {
-        log.info("받은데이터: " + Arrays.toString(selectedItemsIds));
+        log.info("받은데이터: {}", Arrays.toString(selectedItemsIds));
 
         // 선택된 여러개의 video들 순차적으로 삭제
-        for (String id : selectedItemsIds) {
-            youtubeService.deletePlaylistItems(oAuthService.getAccessToken(), id);
+        for (int i = 0; i < selectedItemsIds.length; i++) {
+            youtubeService.deletePlaylistItems(oAuthService.getAccessToken(), selectedItemsIds[i]);
+            sseEmitter.progress(i + 1 + " / " + selectedItemsIds.length);
         }
         return ResponseEntity.ok("삭제완료!");
     }

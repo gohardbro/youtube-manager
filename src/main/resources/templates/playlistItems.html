@@ -5,6 +5,7 @@
     <meta th:name="_csrf" th:content="${_csrf.token}"/>
     <!-- default header name is X-CSRF-TOKEN -->
     <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
+<!--    <link rel="stylesheet" href="/assets/css/main.css">-->
     <title>playlistItems</title>
 </head>
 <body>
@@ -32,8 +33,9 @@
     </fieldset>
 
     <button id="deleteButton">선택한 항목 삭제</button>
+
+    <div id="progress"></div>
 </article>
 <script src="/assets/js/main.js"></script>
-
 </body>
 </html>

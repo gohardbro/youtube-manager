@@ -1,6 +1,22 @@
 const deleteButton = document.getElementById("deleteButton");
 deleteButton.addEventListener("click", deleteData);
 
+// 진행상황 보여주기
+function showProgress() {
+    // SSE(Server Sent Event)
+    const source = new EventSource("/progress");
+    const progressDiv = document.getElementById("progress");
+
+    source.onmessage = function (event) {
+        progressDiv.innerText = event.data;
+    };
+
+    source.onerror = function () {
+        source.close();
+        progressDiv.innerText = "오류가 발생했습니다.";
+    };
+}
+
 // playlist 안에서 선택한 비디오 삭제
 function deleteData() {
     const selectedItems = []; // 선택된 항목들 담을 배열
@@ -25,6 +41,8 @@ function deleteData() {
     const deleteConfirm = confirm("선택한 비디오들을 삭제 하시겠습니까?");
 
     if (deleteConfirm) {
+        showProgress(selectedItems.length);
+
         fetch("/playlists/delete", {
             method: "DELETE",
             headers: {
