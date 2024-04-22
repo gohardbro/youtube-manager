@@ -3,21 +3,34 @@ package dev.gohard.youtubemanager.config;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.io.IOException;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class SseEmitters {
-    private  final List<SseEmitter> emitters = new CopyOnWriteArrayList<>();
+    private static final long TIMEOUT = 60L * 1000;
+    private final ConcurrentHashMap<String, SseEmitter> emitters = new ConcurrentHashMap<>();
 
-    public SseEmitter add(SseEmitter emitter) {
-        this.emitters.add(emitter);
-        emitter.onCompletion(() -> {
-            this.emitters.remove(emitter); // 만료시 리스트에서 삭제
-        });
-        emitter.onTimeout(() -> {
-            emitter.complete();
-        });
+    public SseEmitter add(String uuid) throws IOException {
+        SseEmitter emitter = new SseEmitter(TIMEOUT);
+        emitters.put(uuid, emitter);
+
+        // emitter deletion logic
+        emitter.onCompletion(() -> this.emitters.remove(uuid));
+        emitter.onTimeout(() -> this.emitters.remove(uuid));
+        emitter.onError((callback) -> this.emitters.remove(uuid));
+
+        // sending connection response msg
+        emitter.send(SseEmitter.event().id(uuid).data("sse connected!"));
+
         return emitter;
+    }
+
+    public boolean hasKey(String uuid) {
+        return this.emitters.containsKey(uuid);
+    }
+
+    public SseEmitter get(String uuid) {
+        return this.emitters.get(uuid);
     }
 }

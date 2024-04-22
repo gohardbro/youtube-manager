@@ -2,9 +2,10 @@ const deleteButton = document.getElementById("deleteButton");
 deleteButton.addEventListener("click", deleteData);
 
 // 진행상황 보여주기
-function showProgress() {
+function sseSub() {
     // SSE(Server Sent Event)
-    const source = new EventSource("/progress");
+    let uuid = crypto.randomUUID();
+    const source = new EventSource("/sse/" + uuid);
     const progressDiv = document.getElementById("progress");
 
     source.onmessage = function (event) {
@@ -15,6 +16,8 @@ function showProgress() {
         source.close();
         progressDiv.innerText = "오류가 발생했습니다.";
     };
+
+    return uuid;
 }
 
 // playlist 안에서 선택한 비디오 삭제
@@ -41,7 +44,7 @@ function deleteData() {
     const deleteConfirm = confirm("선택한 비디오들을 삭제 하시겠습니까?");
 
     if (deleteConfirm) {
-        showProgress(selectedItems.length);
+        let uuid = sseSub();
 
         fetch("/playlists/delete", {
             method: "DELETE",
@@ -49,6 +52,7 @@ function deleteData() {
                 "header": csrfHeader,
                 "Content-Type": "application/json",
                 "X-CSRF-TOKEN": csrfToken, // CSRF 토큰
+                "sseToken": uuid
             },
             body: JSON.stringify(selectedItems),
             credentials: "include" //인증 정보를 요청에 포함
